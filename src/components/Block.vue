@@ -1,5 +1,5 @@
 <template>
-  <div class="block" v-if="isVisible">Click Me</div>
+  <div class="block" v-if="isVisible" @click="stopTimer">Click Me</div>
 </template>
 
 <script>
@@ -8,12 +8,25 @@ export default {
   data() {
     return {
       isVisible: false,
+      timer: null,
+      reactionTime: 0,
     }
   },
   mounted() {
     setTimeout(() => {
       this.isVisible = true
+      this.startTimer()
     }, this.delay)
+  },
+  methods: {
+    startTimer() {
+      this.timer = setInterval(() => {
+        this.reactionTime += 10
+      }, 10)
+    },
+    stopTimer() {
+      clearInterval(this.timer)
+    },
   },
 }
 </script>
